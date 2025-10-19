@@ -7,12 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let isCardOpen = false;
   let typedInstance = null;
   let petalElements = [];
+  let animationFrameId = null;
 
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
 
+  // Tối ưu Swiper configuration
   const swiper = new Swiper(".swiper-container", {
     loop: true,
     effect: "coverflow",
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
       stretch: 0,
       depth: 100,
       modifier: 1,
-      slideShadows: true,
+      slideShadows: false, // Tắt shadow để tăng performance
     },
     pagination: {
       el: ".swiper-pagination",
@@ -38,64 +40,83 @@ document.addEventListener("DOMContentLoaded", function () {
       delay: 5000,
       disableOnInteraction: false,
     },
+    speed: 600, // Giảm tốc độ transition
     touchEventsTarget: "wrapper",
-    touchRatio: isMobile ? 0.3 : 1,
+    touchRatio: isMobile ? 0.5 : 1, // Tăng touch ratio cho mobile
     touchAngle: 45,
     simulateTouch: true,
     shortSwipes: true,
     longSwipes: true,
     longSwipesRatio: 0.5,
     longSwipesMs: 300,
+    resistance: true,
+    resistanceRatio: 0.85,
+    observer: true,
+    observeParents: true,
   });
 
-  envelopeWrapper.addEventListener("click", () => {
+  envelopeWrapper.addEventListener("click", openEnvelope, { once: true });
+
+  function openEnvelope() {
     if (envelopeWrapper.classList.contains("open")) return;
 
     envelopeWrapper.classList.add("open");
     isCardOpen = true;
 
-    music.play().catch((error) => {
-      console.log(
-        "Trình duyệt chặn tự động phát nhạc. Cần tương tác của người dùng."
-      );
+    // Sử dụng requestAnimationFrame để tối ưu animation
+    requestAnimationFrame(() => {
+      music.play().catch((error) => {
+        console.log("Trình duyệt chặn tự động phát nhạc.");
+      });
     });
 
     setTimeout(() => {
-      envelopeWrapper.style.transform = "scale(2) rotate(10deg)";
-      envelopeWrapper.style.opacity = "0";
+      requestAnimationFrame(() => {
+        envelopeWrapper.style.transform = "scale(2) rotate(10deg)";
+        envelopeWrapper.style.opacity = "0";
+      });
 
       setTimeout(() => {
-        mainContent.classList.add("visible");
+        requestAnimationFrame(() => {
+          mainContent.classList.add("visible");
+          footer.classList.remove("footer-hidden");
+        });
 
         launchConfetti();
         startTypingEffect();
         createFallingPetals();
-        footer.classList.remove("footer-hidden");
       }, 500);
     }, 1200);
-  });
+  }
 
   function launchConfetti() {
-    const particleCount = isMobile ? 30 : 50;
-    const duration = isMobile ? 3 * 1000 : 5 * 1000;
+    // Giảm số lượng confetti để tăng performance
+    const particleCount = isMobile ? 15 : 30;
+    const duration = isMobile ? 2000 : 3000; // Giảm thời gian
     const animationEnd = Date.now() + duration;
     const defaults = {
-      startVelocity: 30,
+      startVelocity: isMobile ? 15 : 25,
       spread: 360,
-      ticks: 60,
+      ticks: isMobile ? 30 : 50, // Giảm số ticks
       zIndex: 101,
+      disableForReducedMotion: true,
+      scalar: 0.8, // Giảm kích thước particles
     };
 
     function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
     }
 
+    const intervalTime = isMobile ? 600 : 350; // Tăng interval
     const interval = setInterval(function () {
       const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) {
-        return clearInterval(interval);
+        clearInterval(interval);
+        return;
       }
       const count = particleCount * (timeLeft / duration);
+      
+      // Giảm số lần gọi confetti
       confetti(
         Object.assign({}, defaults, {
           particleCount: count,
@@ -108,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
           origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
         })
       );
-    }, 250);
+    }, intervalTime);
   }
 
   function startTypingEffect() {
@@ -120,26 +141,50 @@ document.addEventListener("DOMContentLoaded", function () {
 
     typedInstance = new Typed("#greeting", {
       strings: greetingStrings,
-      typeSpeed: 60,
-      backSpeed: 30,
-      backDelay: 2000,
+      typeSpeed: 70, // Tăng tốc độ gõ
+      backSpeed: 40,
+      backDelay: 1500, // Giảm delay
       loop: true,
       smartBackspace: true,
+      showCursor: true,
+      cursorChar: "|",
     });
   }
 
   function createFallingPetals() {
-    const petalCount = isMobile ? 15 : 30;
+    // Giảm số lượng petals để tăng performance
+    const petalCount = isMobile ? 10 : 20;
     const petalContainer = document.body;
+    const fragment = document.createDocumentFragment(); // Sử dụng fragment để tối ưu DOM
 
     for (let i = 0; i < petalCount; i++) {
       let petal = document.createElement("div");
       petal.className = "petal";
       petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = Math.random() * 5 + 8 + "s";
+      petal.style.animationDuration = Math.random() * 4 + 10 + "s"; // Tăng thời gian rơi
       petal.style.animationDelay = Math.random() * 5 + "s";
-      petalContainer.appendChild(petal);
+      
+      fragment.appendChild(petal);
       petalElements.push(petal);
     }
+
+    petalContainer.appendChild(fragment);
+  }
+
+  // Dọn dẹp khi người dùng rời khỏi trang
+  window.addEventListener("beforeunload", () => {
+    if (typedInstance) {
+      typedInstance.destroy();
+    }
+    if (swiper) {
+      swiper.destroy(true, true);
+    }
+    petalElements.forEach(petal => petal.remove());
+    petalElements = [];
+  });
+
+  // Tối ưu cho các thiết bị có reduced motion
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    petalElements.forEach(petal => petal.style.animation = "none");
   }
 });
