@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@400;600&family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary-color: #ff6b9d;
+        --secondary-color: #ffeef8;
+        --text-color: #6a0572;
+        --envelope-color: #ffcce6;
+        --accent-color: #ff4081;
+        --dark-color: #3a1c47;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Be Vietnam Pro", "Quicksand", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-image: url("https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?q=80&w=1965&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        position: relative;
+        touch-action: none;
+      }
+
+      .petal {
+        position: absolute;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 C20 20 20 80 50 100 C80 80 80 20 50 0 Z" fill="%23FFB6C1" opacity="0.8"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        top: -50px;
+        animation: fall linear infinite;
+        pointer-events: none;
+        z-index: 99;
+        will-change: transform;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(0vh) rotateZ(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(105vh) rotateZ(720deg);
+          opacity: 0;
+        }
+      }
+
+      .envelope-wrapper {
+        position: relative;
+        cursor: pointer;
+        transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 10;
+        transform-origin: center;
+        animation: bounce 2s infinite;
+        max-width: 90vw;
+        max-height: 60vh;
+      }
+      
+      .envelope-wrapper:hover {
+        transform: translateY(-10px);
+        animation: none;
+      }
+      
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-15px);
+        }
+        60% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .envelope {
+        position: relative;
+        width: 320px;
+        height: 200px;
+        background-color: var(--envelope-color);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 90vw;
+        max-height: 60vh;
+      }
+      
+      .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        border-top: 100px solid #ff99cc;
+        border-left: 160px solid transparent;
+        border-right: 160px solid transparent;
+        z-index: 3;
+        transform-origin: top;
+        transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      }
+      
+      .envelope::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--envelope-color);
+        border-top: 100px solid transparent;
+        border-left: 160px solid #ffe6f2;
+        border-right: 160px solid #ffe6f2;
+        z-index: 1;
+      }
+      
+      .heart {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        transform: rotate(-45deg);
+        z-index: 4;
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+      
+      .heart::before,
+      .heart::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        border-radius: 50%;
+      }
+      
+      .heart::before {
+        top: -20px;
+        left: 0;
+      }
+      
+      .heart::after {
+        top: 0;
+        left: 20px;
+      }
+      
+      .open .envelope::before {
+        transform: rotateX(180deg);
+        z-index: 0;
+      }
+      
+      .open .heart {
+        opacity: 0;
+      }
+
+      .card {
+        position: absolute;
+        width: 300px;
+        height: 180px;
+        background: linear-gradient(135deg, #fff5f8 0%, #ffe6f2 100%);
+        border-radius: 8px;
+        top: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s 0.7s, transform 0.5s 0.7s;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--text-color);
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-weight: 500;
+        max-width: 85vw;
+        max-height: 50vh;
+      }
+      
+      .card p {
+        margin: 10px 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      
+      .card .tap-icon {
+        font-size: 2.5rem;
+        animation: tap 1s infinite;
+        margin-bottom: 10px;
+      }
+      
+      @keyframes tap {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+      
+      .open .card {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .main-content {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255, 238, 248, 0.95);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1.2s, visibility 1.2s;
+        z-index: 100;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        touch-action: pan-y;
+      }
+      
+      .main-content.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #greeting {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        min-height: 100px;
+        text-align: center;
+        padding: 0 10px;
+      }
+
+      .swiper-container {
+        width: 90%;
+        max-width: 700px;
+        height: 450px;
+        border-radius: 20px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        margin-bottom: 30px;
+        overflow: hidden;
+        touch-action: pan-y;
+      }
+      
+      .swiper-slide {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #fff5f8 0%, #ffe6f2 100%);
+        color: var(--text-color);
+        text-align: center;
+        padding: 30px;
+        box-sizing: border-box;
+        position: relative;
+      }
+      
+      .slide-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+      }
+      
+      .slide-content h3 {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+        font-weight: 700;
+      }
+      
+      .slide-content p {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        max-width: 90%;
+        margin: 0 auto 20px;
+        font-weight: 400;
+        color: var(--dark-color);
+      }
+      
+      .slide-image {
+        width: 100%;
+        max-width: 400px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+      }
+      
+      .slide-image:hover {
+        transform: scale(1.03);
+      }
+      
+      .swiper-button-next,
+      .swiper-button-prev {
+        display: none;
+      }
+      
+      .swiper-pagination-bullet {
+        background: var(--primary-color);
+        opacity: 0.5;
+        width: 12px;
+        height: 12px;
+      }
+      
+      .swiper-pagination-bullet-active {
+        background: var(--primary-color);
+        opacity: 1;
+        width: 30px;
+        border-radius: 6px;
+      }
+      
+      .swipe-hint {
+        margin-top: 15px;
+        color: var(--text-color);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        animation: fadeInOut 2s infinite;
+      }
+      
+      @keyframes fadeInOut {
+        0%, 100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      
+      .signature {
+        margin-top: 25px;
+        margin-bottom: 20px;
+        text-align: center;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        font-weight: 600;
+        font-family: "Dancing Script", cursive;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 0 10px;
+      }
+      
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(255, 107, 157, 0.9), transparent);
+        padding: 15px 20px;
+        text-align: center;
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 500;
+        z-index: 102;
+        backdrop-filter: blur(5px);
+      }
+      
+      .footer-hidden {
+        display: none;
+      }
+
+      .action-buttons {
+        display: none;
+      }
+
+      .action-btn {
+        display: none;
+      }
+
+      .share-buttons {
+        display: none;
+      }
+
+      .share-btn {
+        display: none;
+      }
+
+      .facebook-btn {
+        display: none;
+      }
+
+      .zalo-btn {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          touch-action: pan-y;
+        }
+        
+        #greeting {
+          font-size: 2rem;
+          min-height: 80px;
+        }
+        
+        .swiper-container {
+          height: 400px;
+          max-width: 95%;
+          border-radius: 15px;
+        }
+        
+        .swiper-slide {
+          padding: 25px 20px;
+        }
+        
+        .slide-content h3 {
+          font-size: 2rem;
+        }
+        
+        .slide-content p {
+          font-size: 1rem;
+        }
+        
+        .slide-image {
+          height: 180px;
+        }
+        
+        .signature {
+          font-size: 1rem;
+        }
+        
+        .swipe-hint {
+          font-size: 0.85rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .envelope {
+          width: 280px;
+          height: 180px;
+        }
+        
+        .envelope::before {
+          border-left-width: 140px;
+          border-right-width: 140px;
+          border-top-width: 90px;
+        }
+        
+        .envelope::after {
+          border-left-width: 140px;
+          border-right-width: 140px;
+          border-top-width: 90px;
+        }
+        
+        .card {
+          width: 260px;
+          height: 160px;
+        }
+        
+        .card p {
+          font-size: 0.9rem;
+        }
+        
+        #greeting {
+          font-size: 1.5rem;
+          min-height: 60px;
+        }
+        
+        .swiper-container {
+          height: 380px;
+          max-width: 95%;
+        }
+        
+        .swiper-slide {
+          padding: 20px 15px;
+        }
+        
+        .slide-content h3 {
+          font-size: 1.6rem;
+          margin-bottom: 15px;
+        }
+        
+        .slide-content p {
+          font-size: 0.9rem;
+          line-height: 1.6;
+          margin-bottom: 15px;
+        }
+        
+        .slide-image {
+          height: 160px;
+        }
+        
+        .signature {
+          font-size: 0.95rem;
+        }
+        
+        .swipe-hint {
+          font-size: 0.8rem;
+        }
+        
+        .footer {
+          font-size: 0.85rem;
+          padding: 12px 15px;
+        }
+        
+        .petal {
+          width: 15px;
+          height: 15px;
+        }
+      }
+      
+      @media (max-width: 360px) {
+        .envelope {
+          width: 240px;
+          height: 150px;
+        }
+        
+        .envelope::before {
+          border-left-width: 120px;
+          border-right-width: 120px;
+          border-top-width: 75px;
+        }
+        
+        .envelope::after {
+          border-left-width: 120px;
+          border-right-width: 120px;
+          border-top-width: 75px;
+        }
+        
+        .card {
+          width: 220px;
+          height: 130px;
+        }
+        
+        .card p {
+          font-size: 0.8rem;
+        }
+        
+        #greeting {
+          font-size: 1.3rem;
+          min-height: 50px;
+        }
+        
+        .swiper-container {
+          height: 360px;
+        }
+        
+        .swiper-slide {
+          padding: 15px 10px;
+        }
+        
+        .slide-content h3 {
+          font-size: 1.4rem;
+        }
+        
+        .slide-content p {
+          font-size: 0.8rem;
+        }
+        
+        .slide-image {
+          height: 140px;
+        }
+        
+        .signature {
+          font-size: 0.85rem;
+        }
+      }
+      
+      @media (min-width: 1200px) {
+        .swiper-container {
+          max-width: 800px;
+          height: 500px;
+        }
+        
+        .slide-content h3 {
+          font-size: 2.8rem;
+        }
+        
+        .slide-content p {
+          font-size: 1.25rem;
+        }
+        
+        .slide-image {
+          height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="envelope-wrapper" id="envelope-wrapper">
+      <div class="envelope">
+        <div class="card">
+          <div class="tap-icon">👆</div>
+          <p>Nhấn vào đây để mở nha! 💌</p>
+        </div>
+        <div class="heart"></div>
+      </div>
+    </div>
+
+    <audio id="background-music" loop>
+      <source
+        src="music.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <div class="main-content" id="main-content">
+      <h2 id="greeting"></h2>
+
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Chúc mừng 20/10! 💐</h3>
+              <p>
+                Chúc các bạn nữ trong lớp mình luôn xinh đẹp, rạng rỡ và tự tin như những bông hoa thơm!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Nữ sinh tài năng ✨</h3>
+              <p>
+                Chúc các bạn học tốt, làm bài kiểm tra đạt điểm cao và luôn là niềm tự hào của lớp!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Vui vẻ mỗi ngày 😄</h3>
+              <p>
+                Chúc các bạn luôn vui vẻ, không bao giờ buồn, và mỗi ngày đến trường đều tràn đầy năng lượng!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Bạn bè thân thiết 💖</h3>
+              <p>
+                Cảm ơn các bạn đã làm lớp học của chúng mình trở nên vui vẻ và ấm áp hơn mỗi ngày!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Thành công rực rỡ 🌟</h3>
+              <p>
+                Chúc các bạn đạt được ước mơ, tự tin theo đuổi đam mê và luôn tỏa sáng!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Mãi xinh đẹp 🌸</h3>
+              <p>
+                Chúc các bạn luôn giữ được nụ cười tươi, trái tim ấm áp và tinh thần tích cực!
+              </p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="slide-content">
+              <h3>Hạnh phúc trọn vẹn 💫</h3>
+              <p>
+                Mong các bạn luôn được yêu thương, được trân trọng và có những kỷ niệm đẹp nhất!
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+
+      <div class="swipe-hint">
+        <i class="fas fa-hand-point-left"></i>
+        Vuốt để xem thêm
+        <i class="fas fa-hand-point-right"></i>
+      </div>
+
+      <div class="signature">
+      </div>
+    </div>
+
+    <div class="footer footer-hidden" id="footer">
+      💐 Tập Thể Nam 12 Tin Gửi Các Bạn Nữ Lớp 12 Tin 💐
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const envelopeWrapper = document.getElementById("envelope-wrapper");
+        const mainContent = document.getElementById("main-content");
+        const music = document.getElementById("background-music");
+        const footer = document.getElementById("footer");
+
+        let isCardOpen = false;
+        let typedInstance = null;
+        let petalElements = [];
+        
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+        const swiper = new Swiper(".swiper-container", {
+          loop: true,
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: "auto",
+          coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
+          touchEventsTarget: 'wrapper',
+          touchRatio: isMobile ? 0.3 : 1,
+          touchAngle: 45,
+          simulateTouch: true,
+          shortSwipes: true,
+          longSwipes: true,
+          longSwipesRatio: 0.5,
+          longSwipesMs: 300,
+        });
+
+        envelopeWrapper.addEventListener("click", () => {
+          if (envelopeWrapper.classList.contains("open")) return;
+
+          envelopeWrapper.classList.add("open");
+          isCardOpen = true;
+
+          music.play().catch((error) => {
+            console.log(
+              "Trình duyệt chặn tự động phát nhạc. Cần tương tác của người dùng."
+            );
+          });
+
+          setTimeout(() => {
+            envelopeWrapper.style.transform = "scale(2) rotate(10deg)";
+            envelopeWrapper.style.opacity = "0";
+
+            setTimeout(() => {
+              mainContent.classList.add("visible");
+
+              launchConfetti();
+              startTypingEffect();
+              createFallingPetals();
+              footer.classList.remove("footer-hidden");
+            }, 500);
+          }, 1200);
+        });
+
+        function launchConfetti() {
+          const particleCount = isMobile ? 30 : 50;
+          const duration = isMobile ? 3 * 1000 : 5 * 1000;
+          const animationEnd = Date.now() + duration;
+          const defaults = {
+            startVelocity: 30,
+            spread: 360,
+            ticks: 60,
+            zIndex: 101,
+          };
+
+          function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+          }
+
+          const interval = setInterval(function () {
+            const timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) {
+              return clearInterval(interval);
+            }
+            const count = particleCount * (timeLeft / duration);
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount: count,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+              })
+            );
+            confetti(
+              Object.assign({}, defaults, {
+                particleCount: count,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+              })
+            );
+          }, 250);
+        }
+
+        function startTypingEffect() {
+          const greetingStrings = [
+            "Chúc mừng ngày Phụ nữ Việt Nam 20/10! 💐",
+            "Gửi tới các bạn nữ trong lớp những lời chúc tốt đẹp nhất...",
+            "Chúc các bạn luôn xinh đẹp và thành công! ✨",
+          ];
+
+          typedInstance = new Typed("#greeting", {
+            strings: greetingStrings,
+            typeSpeed: 60,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true,
+            smartBackspace: true,
+          });
+        }
+
+        function createFallingPetals() {
+          const petalCount = isMobile ? 15 : 30;
+          const petalContainer = document.body;
+
+          for (let i = 0; i < petalCount; i++) {
+            let petal = document.createElement("div");
+            petal.className = "petal";
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.animationDuration = Math.random() * 5 + 8 + "s";
+            petal.style.animationDelay = Math.random() * 5 + "s";
+            petalContainer.appendChild(petal);
+            petalElements.push(petal);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
